@@ -26,69 +26,63 @@ public class ManageData extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         koneksi = DatabaseConnection.getKoneksi("localhost", "3306", "root", "", "db_sekolah");
+
         action = act;
-        if (action.equals("Edit")) {
+        if(action.equals("Edit")){
             txtNIS.setEnabled(false);
             showData(nis);
         }
     }
     
     public void SimpanData(){
-    
-        String nis = txtNIS.getText();
-        String nama = txtNama.getText();
-        String kelas = cmbKelas.getSelectedItem().toString();
-        String jurusan = cmbJurusan.getSelectedItem().toString();
-        
-        try {
-        
+        String nis      = txtNIS.getText();
+        String nama     = txtNama.getText();
+        String kelas    = cmbKelas.getSelectedItem().toString();
+        String jurusan  = cmbJurusan.getSelectedItem().toString();
+
+        try{
+            
             Statement stmt = koneksi.createStatement();
-            String query = "INSERT INTO t_siswa(nis,nama_kelas,jurusan)"
-                    + "VALUES('"+nis+"','"+nama+"','"+kelas+"','"+jurusan+"')";
+            String query = "INSERT INTO t_siswa(nis, nama, kelas, jurusan)" + "VALUES('"+nis+"','"+nama+"','"+kelas+"', '"+jurusan+"')";
             System.out.println(query);
             int berhasil = stmt.executeUpdate(query);
-            if (berhasil == 1){
-            
+            if(berhasil == 1){
                 JOptionPane.showMessageDialog(null,"Data Berhasil Dimasukkan");
+            }else {
                 
-            } else {
-            
                 JOptionPane.showMessageDialog(null, "Data Gagal Dimasukkan");
             }
-        } catch(SQLException ex) {
-        
+        }catch(SQLException ex){
+            
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Terjadi kesalahan Pada Database");
+            JOptionPane.showMessageDialog(null, "Terjadi Kesalahan pada Database");
         }
     }
     
     public void EditData(){
-    
-        String nis = txtNIS.getText();
-        String nama = txtNama.getText();
-        String kelas = cmbKelas.getSelectedItem().toString();
-        String jurusan = cmbJurusan.getSelectedItem().toString();
+        String nis      = txtNIS.getText();
+        String nama     = txtNama.getText();
+        String kelas    = cmbKelas.getSelectedItem().toString();
+        String jurusan  = cmbJurusan.getSelectedItem().toString();
         
         try {
-        
+            
             Statement stmt = koneksi.createStatement();
-            String query = "UPDATE t_siswa SET nama = '"+nama+"'"
-                    + "kelas = '"+kelas+"',"
-                    + "jurusan = '"+jurusan+"' WHERE nis = '"+nis+"',";
+            String query = "UPDATE t_siswa SET nama = '"+nama+"'," + "kelas ='"+kelas+"'," + "jurusan='"+jurusan+"' WHERE nis ='" +nis+ "'";
             
             System.out.println(query);
             int berhasil = stmt.executeUpdate(query);
-            if (berhasil == 1){
-            
-                JOptionPane.showMessageDialog(null, "Data Berhasil Diubah");
-            } else {
-            
-                JOptionPane.showMessageDialog(null, "Data Gagal Diubah");
+            if(berhasil == 1){
+                
+                JOptionPane.showMessageDialog(null, "Data berhasil Dirubah");
+            }else{
+                
+                JOptionPane.showMessageDialog(null, "Data gagal Diubah");
             }
-        } catch (SQLException ex) {
-        
+        }catch(SQLException ex){
+            
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Terjadi Kesalahan pada query");
+            JOptionPane.showMessageDialog(null, "Terjadi kesalahan pada query");
         }
     }
     

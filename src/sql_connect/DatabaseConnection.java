@@ -14,23 +14,22 @@ import javax.swing.JOptionPane;
  * @author gin0612
  */
 public class DatabaseConnection {
-    public static Connection getKoneksi(String host, String port, String Username, String password, String db) {
-    String konString = "jdbc:mysql://" + host + ":" + port + "/" + db;
-    Connection koneksi = null;
-    try {
-    Class.forName("com.mysql.jdbc.Driver");
-        String username = null;
-    koneksi = DriverManager.getConnection(konString, username, password);
-    System.out.println("Koneksi Berhasil");
-    } catch (Exception ex){
-    ex.printStackTrace();
-    JOptionPane.showMessageDialog(null, "Koneksi Database Error");
-    koneksi = null;
+    public static Connection getKoneksi(String host, String port, String username, String password, String db){
+        String konString = "jdbc:mysql://"+ host + ":" + port + "/" + db;
+        Connection koneksi = null;
+        
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            koneksi = DriverManager.getConnection(konString, username, password);
+            System.out.println("Koneksi Berhasil");
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Koneksi Database Error");
+            koneksi = null;
+        }
+        return koneksi;
     }
-    return koneksi;
-    }
-    
-    
 }
 
 
